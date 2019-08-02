@@ -23,8 +23,9 @@ namespace Snap2HTML
 				if( initDone )
 				{
 					txtLinkRoot.Text = txtRoot.Text;
-					txtTitle.Text = "Snapshot of " + txtRoot.Text;
-				}
+                    //txtTitle.Text = "Snapshot of " + txtRoot.Text;
+                    txtTitle.Text = "Šildytuvai";
+                }
 			}
 			else
 			{

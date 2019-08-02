@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Security;
 using System.Text;
 using System.Windows.Forms;
 using CommandLine.Utility;
@@ -17,6 +20,10 @@ namespace Snap2HTML
         public frmMain()
         {
             InitializeComponent();
+
+
+            
+
         }
 
 		private void frmMain_Load( object sender, EventArgs e )
@@ -262,5 +269,39 @@ namespace Snap2HTML
 			}
 		}
 
+        private void TabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (e.TabPage == tabPage2 || e.TabPage == tabPage3)
+                e.Cancel = true;
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+
+            const Int32 BufferSize = 128;
+            String line;
+
+            PCSDat pcs = new PCSDat();
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var sFile = openFileDialog1.FileName;
+
+                    using (var fileStream = File.OpenRead(sFile))
+
+                    pcs.GetProjectDataFromFile(sFile);
+
+                }
+                catch (SecurityException ex)
+                {
+                    MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+                }
+
+                
+            }
+        }
     }
 }

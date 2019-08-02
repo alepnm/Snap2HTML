@@ -147,8 +147,6 @@ namespace Snap2HTML
             StringBuilder strCustomerArray = new StringBuilder();
             PCSDat pcs = new PCSDat();
 
-            string last_write_date = "-";
-
             // Get all folders
             var dirs = new List<string>();
 
@@ -193,9 +191,9 @@ namespace Snap2HTML
                             files.Sort();
 							int f = 0;
 
-                            //last_write_date = System.IO.Directory.GetLastWriteTime( currentDir ).ToLocalTime().ToString();
-
-                            long dir_size = 0;
+							string last_write_date = "-";
+							last_write_date = System.IO.Directory.GetLastWriteTime( currentDir ).ToLocalTime().ToString();
+							long dir_size = 0;
 
 							sbCurrentDirArrays.Append( "D.p([" + lineBreakSymbol );
                             
@@ -364,12 +362,8 @@ namespace Snap2HTML
 				return;
 			}
 
-            last_write_date = DateTime.Now.ToString();
-
-
-            // Build HTML
-            sbContent.Replace("[LAST_TIME]", last_write_date);
-            sbContent.Replace( "[DIR DATA]", sbDirArrays.ToString() );
+			// Build HTML
+			sbContent.Replace( "[DIR DATA]", sbDirArrays.ToString() );
             sbContent.Replace( "[TITLE]", txtTitle.Text );
 			sbContent.Replace( "[APP LINK]", "http://www.rlvision.com" );
 			sbContent.Replace( "[APP NAME]", Application.ProductName );
